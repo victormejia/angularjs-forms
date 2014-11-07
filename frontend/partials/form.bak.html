@@ -1,0 +1,81 @@
+<div class="form-wrapper">
+  <h2>Create Account </h2>
+  <form name="userForm" novalidate ng-submit="form.submit(userForm.$valid)">
+    
+    <!-- Name -->
+    <div class="form-item">
+      <label>
+        <input type="text" 
+        name="name" 
+        placeholder="Name"
+        ng-model="form.data.name"
+        required>
+      </label>
+    </div>
+
+    <div ng-if="userForm.$submitted || userForm.name.$touched" 
+        ng-messages="userForm.name.$error" class="errors">
+      <div ng-message="required">You did not enter a name.</div>
+    </div>
+
+    <!-- email -->
+    <div class="form-item">
+      <input type="email" 
+      name="email" 
+      placeholder="Email"
+      ng-model="form.data.email"
+      required>
+    </div>
+
+    <div ng-if="userForm.$submitted || userForm.email.$touched" 
+        ng-messages="userForm.email.$error" class="errors">
+      <div ng-message="required">You did not enter an email.</div>
+      <div ng-message="email">You did not enter a valid email.</div>
+    </div>
+
+    <!-- Username -->
+    <div class="form-item">
+      <label ng-class="{'loading': userForm.username.$pending, 'ok' : userForm.username.$valid, 'invalid': userForm.username.$invalid && userForm.username.$dirty}">
+        <input type="text"
+          name="username"
+          placeholder="Username"
+          ng-model="form.data.username"
+          minlength="5"
+          ng-model-options="{ debounce: { default : 500, blur: 0 }}"
+          username-available-validator
+          required>
+        </label>
+    </div>
+
+    <div ng-if="userForm.$submitted || userForm.username.$touched" 
+        ng-messages="userForm.username.$error" class="errors">
+      <div ng-message="required">You did not enter an username.</div>
+      <div ng-message="minlength">Username must be at least 5 characters long.</div>
+    </div>
+
+    <!-- Password -->
+    <!-- 8 characters long, alphanumeric -->
+    <div class="form-item">
+      <label>
+        <input type="text" 
+        name="password" 
+        placeholder="Password"
+        ng-model="form.data.password"
+        minlength="8"
+        password-validator
+        required>
+      </label>
+    </div>
+
+    <div ng-if="userForm.$submitted || userForm.password.$touched" 
+          ng-messages="userForm.password.$error" class="errors">
+      <div ng-message="required">You did not enter a password.</div>
+      <div ng-message="minlength">Password must be at least 8 characters long.</div>
+      <div ng-message="password">Password must be alphanumeric</div>
+    </div>
+
+    <div class="button-panel">
+      <input type="submit" class="button" title="Sign In" value="Sign Up"</input>
+    </div>
+  </form>
+</div>
